@@ -1,0 +1,27 @@
+let cvFile=event.target.files[0]
+//cvFile should be file no list of file 
+onSubmit(){
+    const formData: FormData = new FormData();
+    if(this.cvFile){
+      
+      console.log(this.cvFile);
+      formData.append('file',this.cvFile);
+    }
+    this.personalService.savePersonal(formData).subscribe(
+      (data:any)=>{
+
+      }
+    );  
+  }
+
+ savePersonal(formData){
+    
+      return this.http.post(this.BASE_URL+'persons/addPersonal',formData);
+    }
+
+
+	@PostMapping("persons/addPersonal")
+	public ResponseEntity<Tpersonal> savePersonal(@RequestPart(value="file") MultipartFile file) throws IOException {
+		return this.tpersonalService.savePersonal(file);
+	}
+	
